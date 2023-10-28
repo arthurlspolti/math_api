@@ -10,6 +10,7 @@ $(document).ready(function () {
       contentType: "application/json",
       data: JSON.stringify({ valorPrincipal, taxaDeJuros, tempo }),
       success: function (data) {
+        console.log(data);
         $("#resultado").text("Montante: " + data.montante);
 
         // Cria o gráfico
@@ -29,7 +30,7 @@ $(document).ready(function () {
               },
               {
                 label: "Juros",
-                data: labels.map((_, i) => data.juros * (i + 1)),
+                data: labels.map((_, i) => (data.juros * (i + 1)) / tempo),
                 backgroundColor: "rgba(255, 99, 132, 0.2)",
                 borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 1,
@@ -42,7 +43,6 @@ $(document).ready(function () {
                 beginAtZero: true,
               },
             },
-            // Adicione esta opção para criar um gráfico de barras empilhadas
             responsive: true,
             plugins: {
               title: {
